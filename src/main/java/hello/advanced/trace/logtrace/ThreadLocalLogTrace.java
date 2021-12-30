@@ -5,7 +5,7 @@ import hello.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ThreadServiceLogTrace implements LogTrace{
+public class ThreadLocalLogTrace implements LogTrace{
 
     private static final String START_PREFIX = "-->";
     private static final String COMPLETE_PREFIX = "<--";
@@ -63,7 +63,7 @@ public class ThreadServiceLogTrace implements LogTrace{
         if(traceIdHolder.get().isFirstLevel()){
             traceIdHolder.remove();//destroy
         }else{
-            traceIdHolder.get().createNextPreviousId();
+            traceIdHolder.set(traceIdHolder.get().createNextPreviousId());
         }
     }
 }
